@@ -1,0 +1,45 @@
+services:
+  app:
+    image: maven:3.9-eclipse-temurin-21  # Образ с Maven и JDK
+    working_dir: /app
+    volumes:
+      - .:/app                          # Пробрасываем исходный код
+      - ~/.m2:/root/.m2                 # Кэшируем зависимости Maven на хосте
+    ports:
+      - "8080:8080"
+      - "5005:5005"                     # Порт для удаленной отладки (опционально)
+    environment:
+      - JAVA_OPTS=-Dspring.devtools.restart.enabled=true
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_URL=jdbc:postgresql://postgres:5432/${POSTGRES_DB}
+    command: mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=*:5005"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - local_net
+
+  postgres:
+    image: postgres:18
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - '5432:5432'
+    volumes:
+      - db-data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - local_net
+
+volumes:
+  db-data:
+
+networks:
+  local_net:
