@@ -2,17 +2,16 @@ package dev.ztok.back.db.entities;
 
 public enum Authorities {
 
-  //user
+  // user
   USER_CREATE, USER_READ, USER_UPDATE, USER_BLOCK,
 
-  //roles
+  // roles
   ROLE_CREATE, ROLE_UPDATE,
 
-  //statistic
+  // statistic
   STATISTIC_READ,
 
-  //video
+  // video
   VIDEO_CREATE, VIDEO_READ, VIDEO_DELETE, VIDEO_BLOCK
 
-  
 }

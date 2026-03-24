@@ -28,8 +28,7 @@ public enum AppExceptionType {
 
   // Системные ошибки
   UNKNOWN_SERVER_ERROR("Неизвестная ошибка сервера", HttpStatus.INTERNAL_SERVER_ERROR.value()),
-  JWT_GENERATION_ERROR("Ошибка генерации JWT", HttpStatus.INTERNAL_SERVER_ERROR.value())
-  ;
+  JWT_GENERATION_ERROR("Ошибка генерации JWT", HttpStatus.INTERNAL_SERVER_ERROR.value());
 
   private final String message;
 
