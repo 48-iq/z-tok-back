@@ -1,18 +1,19 @@
 package dev.ztok.back.security;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
-
 import dev.ztok.back.exceptions.AppException;
 import dev.ztok.back.exceptions.AppExceptionType;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
+/**
+ * JWT сервис - класс для выпуска и валидации JWT токенов.
+ */
 @Service
 @RequiredArgsConstructor
 public class JwtService {
@@ -28,6 +29,12 @@ public class JwtService {
   @Value("${app.jwt.subject}")
   private String subject;
 
+  /**
+   * Генерация JWT токена.
+   *
+   * @param claims полезная нагрузка.
+   * @return JWT токен.
+   */
   public String generate(JwtClaims claims) {
 
     try {

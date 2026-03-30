@@ -1,7 +1,7 @@
 package dev.ztok.back.exceptions;
 
 public class AppException extends RuntimeException {
- 
+
   private AppExceptionType exceptionType;
 
   public AppException(AppExceptionType exceptionType) {

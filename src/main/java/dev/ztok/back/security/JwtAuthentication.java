@@ -1,7 +1,6 @@
 package dev.ztok.back.security;
 
 import java.util.Collection;
-
 import org.jspecify.annotations.Nullable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
